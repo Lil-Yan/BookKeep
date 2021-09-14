@@ -144,7 +144,7 @@ public abstract class BaseRecordFragment extends Fragment implements View.OnClic
         });
     }
 
-    public abstract void saveAccountToDB();//抽象方法：让子类一定重写
+    public abstract void saveAccountToDB();
 
     @Override
     public void onClick(View v) {
@@ -162,7 +162,6 @@ public abstract class BaseRecordFragment extends Fragment implements View.OnClic
     private void showTimeDialog() {
         SelectTimeDialog dialog = new SelectTimeDialog(getContext());
         dialog.show();
-        //设定确定按钮被点击了的监听器
         dialog.setOnEnsureListener(new SelectTimeDialog.OnEnsureListener() {
             @Override
             public void onEnsure(String time, int year, int month, int day) {

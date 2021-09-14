@@ -51,12 +51,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         preferences = getSharedPreferences("budget", Context.MODE_PRIVATE);
         addLVHeaderView();//添加listview头布局
         mDatas = new ArrayList<>();
-        //设置适配器：加载每一行数据到列表当中
+        //设置适配器
         adapter = new AccountAdapter(this, mDatas);
         todayLv.setAdapter(adapter);
     }
 
-    //初始化自带的view的方法
     private void initView() {
         todayLv = findViewById(R.id.main_lv);
         todayLv = findViewById(R.id.main_lv);
@@ -69,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setLVLongClickListener();
 
     }
-//listview长按删除
+//长按删除
     private void setLVLongClickListener() {
         todayLv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -79,14 +78,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 int pos = position-1;
                 AccountBean clickBean = mDatas.get(pos);  //获取正在被点击的这条信息
-
                 //弹出提示用户是否删除的对话框
                 showDeleteItemDialog(clickBean);
                 return false;
             }
         });
     }
-    //弹出是否删除某条记录的对话框
+    //弹出是否删除记录对话框
     private void showDeleteItemDialog(final AccountBean clickBean) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("提示信息").setMessage("您确定要删除这条记录么？")
@@ -99,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         DBManager.deleteItemFromAccounttbById(click_id);
                         mDatas.remove(clickBean);   //实时刷新，移除集合当中的对象
                         adapter.notifyDataSetChanged();   //提示适配器更新数据
-                        setTopTvShow();   //改变头布局TextView显示的内容
+                        setTopTvShow();
                     }
                 });
         builder.create().show();   //显示对话框
@@ -110,7 +108,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //将布局转换成View对象
         headerView = getLayoutInflater().inflate(R.layout.item_mainlv_top, null);
         todayLv.addHeaderView(headerView);
-        //查找头布局控件
         topOutTv = headerView.findViewById(R.id.item_mainlv_top_tv_out);
         topInTv = headerView.findViewById(R.id.item_mainlv_top_tv_in);
         topbudgetTv = headerView.findViewById(R.id.item_mainlv_top_tv_budget);
@@ -151,7 +148,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         float outcomeOneMonth = DBManager.getSumMoneyOneMonth(year, month, 0);
         topInTv.setText("￥" + incomeOneMonth);
         topOutTv.setText("￥" + outcomeOneMonth);
-        //设置预算金额剩余
 
     }
 
@@ -192,7 +188,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
         if (view == headerView) {
-            //头布局被点击了
 
         }
 
@@ -213,7 +208,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 editor.commit();
                 //计算剩余金额
                 float outcomeOneMonth = DBManager.getSumMoneyOneMonth(year, month, 0);
-                float syMoney = money - outcomeOneMonth;//预算剩余 = 预算-支出
+                float syMoney = money - outcomeOneMonth;
                 topbudgetTv.setText("￥" + syMoney);
             }
         });
@@ -225,17 +220,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (isShow) {
             PasswordTransformationMethod passwordMethod = PasswordTransformationMethod.getInstance();
             topInTv.setTransformationMethod(passwordMethod);   //设置隐藏
-            topOutTv.setTransformationMethod(passwordMethod);   //设置隐藏
-            topbudgetTv.setTransformationMethod(passwordMethod);   //设置隐藏
+            topOutTv.setTransformationMethod(passwordMethod);
+            topbudgetTv.setTransformationMethod(passwordMethod);
             topShowIv.setImageResource(R.mipmap.ih_hide);
             isShow = false;   //设置标志位为隐藏状态
         } else {
             HideReturnsTransformationMethod hideMethod = HideReturnsTransformationMethod.getInstance();
-            topInTv.setTransformationMethod(hideMethod);   //设置隐藏
-            topOutTv.setTransformationMethod(hideMethod);   //设置隐藏
-            topbudgetTv.setTransformationMethod(hideMethod);   //设置隐藏
+            topInTv.setTransformationMethod(hideMethod);
+            topOutTv.setTransformationMethod(hideMethod);
+            topbudgetTv.setTransformationMethod(hideMethod);
             topShowIv.setImageResource(R.mipmap.ih_show);
-            isShow = true;   //设置标志位为隐藏状态
+            isShow = true;
         }
     }
 }

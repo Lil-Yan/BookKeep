@@ -37,14 +37,13 @@ public class RecordActivity extends AppCompatActivity {
 
         List<Fragment> fragmentList = new ArrayList<>();//初始化viewpager页面的集合
 //        创建收入和支出页面，放置在Fragment当中
-        OutcomeFragment outFrag = new OutcomeFragment(); //支出
-        IncomeFragment inFrag = new IncomeFragment(); //收入
+        OutcomeFragment outFrag = new OutcomeFragment();
+        IncomeFragment inFrag = new IncomeFragment();
         fragmentList.add(outFrag);
         fragmentList.add(inFrag);
 
 //        创建适配器
         RecordPagerAdapter pagerAdapter = new RecordPagerAdapter(getSupportFragmentManager(), fragmentList);
-//        设置适配器
         viewPager.setAdapter(pagerAdapter);
         //将TabLayout和ViwePager进行关联
         tabLayout.setupWithViewPager(viewPager);

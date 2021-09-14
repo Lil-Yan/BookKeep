@@ -14,6 +14,7 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 
+import com.example.bookkeeping.HistoryActivity;
 import com.example.bookkeeping.R;
 
 public class Moredialog extends Dialog implements View.OnClickListener {
@@ -52,8 +53,8 @@ public class Moredialog extends Dialog implements View.OnClickListener {
 //                getContext().startActivity(intent);
                 break;
             case R.id.dialog_more_btn_record:
-//                intent.setClass(getContext(), HistoryActivity.class);
-//                getContext().startActivity(intent);
+                intent.setClass(getContext(), HistoryActivity.class);
+                getContext().startActivity(intent);
                 break;
             case R.id.dialog_more_btn_info:
 //                intent.setClass(getContext(), MonthChartActivity.class);
@@ -67,9 +68,7 @@ public class Moredialog extends Dialog implements View.OnClickListener {
 
     /* 设置Dialog的尺寸和屏幕尺寸一致*/
     public void setDialogSize(){
-//        获取当前窗口对象
         Window window = getWindow();
-//        获取窗口对象的参数
         WindowManager.LayoutParams wlp = window.getAttributes();
 //        获取屏幕宽度
         Display d = window.getWindowManager().getDefaultDisplay();

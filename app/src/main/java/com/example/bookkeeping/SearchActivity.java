@@ -32,7 +32,7 @@ public class SearchActivity extends AppCompatActivity {
         mDatas = new ArrayList<>();
         adapter = new AccountAdapter(this,mDatas);
         searchLv.setAdapter(adapter);
-        searchLv.setEmptyView(emptyTv);   //设置无数局时，显示的控件
+        searchLv.setEmptyView(emptyTv);
     }
 
     private void initView() {

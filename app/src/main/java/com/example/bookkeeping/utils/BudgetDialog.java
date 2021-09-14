@@ -53,7 +53,7 @@ public class BudgetDialog extends Dialog implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.dialog_budget_iv_error:
-                cancel();  //取消对话框
+                cancel();
                 break;
             case R.id.dialog_budget_btn_ensure:
                 //获取输入数据数值

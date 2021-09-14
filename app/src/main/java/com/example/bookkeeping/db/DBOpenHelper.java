@@ -19,7 +19,6 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     //    创建数据库的方法，只有项目第一次运行时，会被调用
     @Override
     public void onCreate(SQLiteDatabase db) {
-//        创建表示类型的表
         String sql = "create table typetb(id integer primary key autoincrement,typename varchar(10),imageId integer,sImageId integer,kind integer)";
         db.execSQL(sql);
         insertType(db);

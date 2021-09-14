@@ -24,7 +24,6 @@ public class DBManager {
     //读取数据库当中数据。写入内存中
     public static List<TypeBean> getTypeList(int kind) {
         List<TypeBean> list = new ArrayList<>();
-        //读取typetb表当中的数据
         String sql = "select * from typetb where kind = " + kind;//查找传入这个类型的全部数据
         Cursor cursor = db.rawQuery(sql, null);
 //        循环读取游标内容，存储到对象当中
@@ -107,9 +106,8 @@ public class DBManager {
         return i;
     }
 
-    /**
-     * 根据备注搜索收入或者支出的情况列表
-     * */
+    // 根据备注搜索收入或者支出的情况列表
+
     public static List<AccountBean>getAccountListByRemarkFromAccounttb(String beizhu){
         List<AccountBean>list = new ArrayList<>();
         String sql = "select * from accounttb where beizhu like '%"+beizhu+"%'";
@@ -131,9 +129,6 @@ public class DBManager {
         return list;
     }
 
-    /**
-     * 查询记账的表当中有几个年份信息
-     * */
     public static List<Integer>getYearListFromAccounttb(){
         List<Integer>list = new ArrayList<>();
         String sql = "select distinct(year) from accounttb order by year asc";
@@ -146,5 +141,25 @@ public class DBManager {
     }
 
 
+    public static List<AccountBean>getAccountListOneMonthFromAccounttb(int year,int month){
+        List<AccountBean>list = new ArrayList<>();
+        String sql = "select * from accounttb where year=? and month=? order by id desc";
+        Cursor cursor = db.rawQuery(sql, new String[]{year + "", month + ""});
+        //遍历符合要求的每一行数据
+        while (cursor.moveToNext()) {
+            int id = cursor.getInt(cursor.getColumnIndex("id"));
+            String typename = cursor.getString(cursor.getColumnIndex("typename"));
+            String beizhu = cursor.getString(cursor.getColumnIndex("beizhu"));
+            String time = cursor.getString(cursor.getColumnIndex("time"));
+            int sImageId = cursor.getInt(cursor.getColumnIndex("sImageId"));
+            int kind = cursor.getInt(cursor.getColumnIndex("kind"));
+            float money = cursor.getFloat(cursor.getColumnIndex("money"));
+            int day = cursor.getInt(cursor.getColumnIndex("day"));
+            AccountBean accountBean = new AccountBean(id, typename, sImageId, beizhu, money, time, year, month, day, kind);
+            list.add(accountBean);
+        }
+        return list;
+    }
 
 }
+
